@@ -1,9 +1,8 @@
- FROM node:20-alpine
+FROM python:3-alpine3.15
 
-WORKDIR '/app'
 
 COPY . .
-RUN npm install
-EXPOSE 3000
+RUN pip install -r requirements.txt
+EXPOSE 5000
 
-CMD ["npm","start"]
+CMD gunicorn -w 4 -b 0.0.0.0:5000 app:app
